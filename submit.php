@@ -15,15 +15,19 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
-$stmt = $pdo->prepare("INSERT INTO employees (name, email, phone) VALUES (:name, :email, :phone)");
+$stmt = $pdo->prepare("INSERT INTO employees (fname,lname, email, phone, production) VALUES (:fname, :lname, :email, :phone, :production)");
 
-$name = $_POST["name"];
+$fname = $_POST["fname"];
+$lname = $_POST["lname"];
 $email = $_POST["email"];
 $phone = $_POST["phone"];
+$prod = $_POST["production"];
 
-$stmt->bindParam(':name', $name);
+$stmt->bindParam(':fname', $fname);
+$stmt->bindParam(':lname', $lname);
 $stmt->bindParam(':email', $email);
 $stmt->bindParam(':phone', $phone);
+$stmt->bindParam(':production', $prod);
 
 if ($stmt->execute()) {
     echo "New record created successfully";

@@ -4,12 +4,18 @@
 	<title>Employee Data</title>
 	<style>
 		body{
-			margin-left: 35%;
+			margin-left: 25%;
 			font-family: sans-serif;
+			background-color: azure;
 		}
 
 		table{
 			border-spacing: 20px;
+		}
+
+		input[type="submit"]{
+			border-radius: 10px;
+			width: 60px;
 		}
 	</style>
 </head>
@@ -20,9 +26,11 @@
 	</form>
 	<table>
 		<tr>
-			<th>Name</th>
+			<th>First Name</th>
+			<th>Last Name</th>
 			<th>Email</th>
 			<th>Phone</th>
+			<th>Department</th>
 		</tr>
 
 		<?php
@@ -44,13 +52,13 @@
     $pdo = new PDO($dsn, $user, $password);
 
     // Retrieve employee data
-    $sql = "SELECT name, email, phone FROM employees";
+    $sql = "SELECT fname, lname, email, phone, production FROM employees";
     $stmt = $pdo->query($sql);
 
     // Output employee data in table rows
     if ($stmt->rowCount() > 0) {
         while($row = $stmt->fetch()) {
-            echo "<tr><td>" . $row["name"] . "</td><td>" . $row["email"] . "</td><td>" . $row["phone"] . "</td></tr>";
+            echo "<tr><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td><td>" . $row["email"] . "</td><td>". $row["phone"] . "</td><td>" . $row["production"] . "</td></tr>";
         }
     } else {
         echo "0 results";

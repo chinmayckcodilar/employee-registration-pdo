@@ -26,11 +26,14 @@
 	</form>
 	<table>
 		<tr>
+			<th>ID</th>
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>Email</th>
 			<th>Phone</th>
 			<th>Department</th>
+			<th>Edit</th>
+			<th>Delete</th>
 		</tr>
 
 		<?php
@@ -52,13 +55,13 @@
     $pdo = new PDO($dsn, $user, $password);
 
     // Retrieve employee data
-    $sql = "SELECT fname, lname, email, phone, production FROM employees";
+    $sql = "SELECT id,fname, lname, email, phone, production FROM employees";
     $stmt = $pdo->query($sql);
 
-    // Output employee data in table rows
+    // Output employee data in table rows with edit and delete buttons
     if ($stmt->rowCount() > 0) {
         while($row = $stmt->fetch()) {
-            echo "<tr><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td><td>" . $row["email"] . "</td><td>". $row["phone"] . "</td><td>" . $row["production"] . "</td></tr>";
+            echo "<tr><td>" .$row["id"] . "</td><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td><td>" . $row["email"] . "</td><td>". $row["phone"] . "</td><td>" . $row["production"] . "</td><td><a href='edit.php?id=" . $row["id"] . "'>Edit</a></td><td><a href='delete.php?id=" . $row["id"] . "'>Delete</a></td></tr>";
         }
     } else {
         echo "0 results";

@@ -15,6 +15,30 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
+
+$stmt=$pdo->prepare("SELECT * FROM employees WHERE email = :email");
+$stmt->bindParam(':email', $_POST["email"]);
+$stmt->execute();
+
+if($stmt->rowCount() > 0){
+    echo '<script language="javascript"> alert("Email or Phone already exists");</script>';
+    header("refresh:0 ,url= employee-reg.php");
+    exit;
+}
+
+$stmt=null;
+
+$stmt=$pdo->prepare("SELECT * FROM employees WHERE phone = :phone");
+$stmt->bindParam(':phone', $_POST["phone"]);
+$stmt->execute();
+
+if($stmt->rowCount() > 0){
+    echo '<script language="javascript"> alert("Mobile number already exists");</script>';
+    header("refresh:0 , url= employee-reg.php");
+    exit;
+}
+
+
 $stmt = $pdo->prepare("INSERT INTO employees (fname,lname, email, phone, production) VALUES (:fname, :lname, :email, :phone, :production)");
 
 $fname = $_POST["fname"];
